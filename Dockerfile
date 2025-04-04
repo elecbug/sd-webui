@@ -50,9 +50,15 @@ VOLUME ["/app/models"]
 # --- entrypoint.sh 복사 및 실행 설정 ---
 USER root
 
-COPY entrypoint.sh /entrypoint.sh
+COPY /entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 USER sduser
 
-ENTRYPOINT ["/entrypoint.sh"]
+# --- 작업 디렉토리 설정 ---
+WORKDIR /
+
+# --- 엔트리 포인트 CRLF 문제 ---
+RUN sed -i 's/\r$//' /entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]

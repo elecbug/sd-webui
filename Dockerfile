@@ -59,6 +59,6 @@ USER sduser
 WORKDIR /
 
 # --- 엔트리 포인트 CRLF 문제 ---
-RUN sed -i 's/\r$//' /entrypoint.sh
+# RUN sed -i 's/\r$//' /entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]

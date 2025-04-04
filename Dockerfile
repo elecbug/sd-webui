@@ -18,8 +18,11 @@ USER sduser
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git .
 
 # --- 필요 저장소 미리 클론 (자동 다운로드 방지) ---
-RUN mkdir -p /app/repositories && cd /app/repositories
-RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets
+RUN mkdir -p /app/repositories
+
+WORKDIR /app/repositories
+
+RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-assets stable-diffusion-webui-assets
 RUN git clone https://github.com/Stability-AI/stablediffusion.git stable-diffusion-stability-ai
 RUN git clone https://github.com/Stability-AI/generative-models.git generative-models
 RUN git clone https://github.com/crowsonkb/k-diffusion.git k-diffusion
@@ -56,9 +59,9 @@ RUN chmod +x /entrypoint.sh
 USER sduser
 
 # --- 작업 디렉토리 설정 ---
-WORKDIR /
+WORKDIR /app
 
 # --- 엔트리 포인트 CRLF 문제 ---
 # RUN sed -i 's/\r$//' /entrypoint.sh
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

@@ -1,18 +1,22 @@
 #!/bin/bash
-set -e
+source /app/venv/bin/activate
+exec python3 launch.py --xformers --medvram --skip-torch-cuda-test --listen
 
-echo "[entrypoint.sh] Starting Stable Diffusion WebUI with arguments: $COMMANDLINE_ARGS"
+# #!/bin/bash
+# set -e
 
-cd /app
+# echo "[entrypoint.sh] Starting Stable Diffusion WebUI with arguments: $COMMANDLINE_ARGS"
 
-# 모델 디렉토리 존재 확인
-if [ ! -d "models/Stable-diffusion" ]; then
-    echo "⚠️ models/Stable-diffusion 경로가 없습니다. 모델 파일이 없을 수 있습니다."
-    mkdir -p models/Stable-diffusion
-fi
+# cd /app
 
-# TCMalloc (선택적 성능 최적화)
-export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" || true
+# # 모델 디렉토리 존재 확인
+# if [ ! -d "models/Stable-diffusion" ]; then
+#     echo "⚠️ models/Stable-diffusion 경로가 없습니다. 모델 파일이 없을 수 있습니다."
+#     mkdir -p models/Stable-diffusion
+# fi
 
-# 실행
-bash webui.sh $COMMANDLINE_ARGS
+# # TCMalloc (선택적 성능 최적화)
+# export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libtcmalloc.so" || true
+
+# # 실행
+# bash webui.sh $COMMANDLINE_ARGS
